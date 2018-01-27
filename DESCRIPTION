@@ -1,11 +1,11 @@
 Package: ehsanr
 Title: Basic tools for working in R
-Version: 0.0.0.9100
+Version: 0.0.0.2108
 Authors@R: person("Ehsan", "Tabari", email = "e.tabari@gmail.com", role = c("aut", "cre"))
 Description: Some pretty stuff to do in R.
 Depends: R (>= 3.3.0)
 License: MIT
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr, RJSONIO, ontologyIndex, Rsamtools, data.table
+Imports: plyr, dplyr, data.table
 RoxygenNote: 6.0.1
