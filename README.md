@@ -7,7 +7,7 @@ load this package using:
 
 ```R
 library(devtools)
-install_github(repo='ehsanr', username='etabari')
+install_github(repo='etabari/ehsanr')
 ```
 
 
@@ -16,6 +16,6 @@ In case you don't have write access to the default libPath you could use the fol
 ```R
 library(devtools)
 withr::with_libpaths(new =  .libPaths()[length(.libPaths())], 
-						install_github(repo='ehsanr', username='etabari')
+						install_github(repo='etabari/ehsanr')
 						)
 ```
