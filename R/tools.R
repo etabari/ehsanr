@@ -17,6 +17,36 @@ captionize <- function(str, split=' |_|\\.') {
 }
 
 
+#' if.na 
+#'
+#' This function sreplaces the NA in a list with a value
+#' @param data an object to be checked if it's NA
+#' @param subs substitute the NA values with subs (Defauts empty string)
+#' @keywords if.na ifna 
+#' @export
+#' @examples
+#' if.na(airquality$Ozone, -1)
+if.na <- function(data, subs='') {
+    x <- data
+	x[is.na(x)] <- subs
+	x
+}
+
+#' if.null 
+#'
+#' This function sreplaces the NULL in a list with a value
+#' @param data an object to be checked if it's NULL
+#' @param subs substitute the NULL values with subs (Defauts empty string)
+#' @keywords if.null ifnull null
+#' @export
+#' @examples
+#' if.null(airquality$Ozone, -1)
+if.null <- function(data, subs='') {
+    x <- data
+	x[is.null(x)] <- subs
+	x
+}
+
 
 #' goodNum 
 #'
@@ -56,6 +86,42 @@ goodNum <- function(numbers, digits=2, percent=FALSE, ...) {
 								)
 			)
 }
+
+
+
+#' splitText
+#'
+#' This function splits the given column in the data.frame
+#' @param vec a vector of char objects
+#' @param sep character containing regular expression(s) (unless fixed = TRUE) to use for splitting.
+#' @param part the part of the split to return, when 0 returns all. defaults to 0.
+#' @param fixed logical. If TRUE match split exactly, otherwise use regular expressions. defaults to FALSE.
+#' @param fill logical. fill with NA when needed.  defaults to TRUE.
+#' @keywords splitCol split column
+#' @export
+#' @examples
+#' splitText('hello2all4of222you', '\\d+')   # a vector ('hello','all', 'of', 'you')
+#' splitText('hello.all.of.you', '.', fixed=TRUE)  # same as above
+#' splitText('hello-all-of-you', '-')   # same as above
+#' splitText('hello-all-of-you', '-', 2) # 'all'
+#' splitText(c('all-2', 'any-3', 'never-4'), '-') # a data.frame with 2 columns
+#' splitText(c('all-2', 'any-3', 'never-4-d'), '-') # The third column will be NA for the first two rows
+#' splitText(c('all-2', 'any-3', 'never-4'), '-', 1) # a vector c('all', 'any', 'never')
+splitText <- function (vec, sep, part=0, fixed = FALSE, fill=TRUE) {
+    cols <- strsplit(as.character(vec), sep, fixed = fixed)
+    if (fill) {
+        max_l <- max(sapply(cols, length))
+        cols <- lapply(cols, function(x) c(x, rep(NA, max_l - length(x))))
+    }
+    cols <- do.call(rbind, cols)
+    
+    colnames(cols) <- paste0('split.', 1:ncol(cols))
+    if(part==0)
+        as.data.frame(cols)
+    else 
+        cols[,part]
+}
+
 
 
 #' splitCol 
