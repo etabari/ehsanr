@@ -116,8 +116,10 @@ splitText <- function (vec, sep, part=0, fixed = FALSE, fill=TRUE) {
     cols <- do.call(rbind, cols)
     
     colnames(cols) <- paste0('split.', 1:ncol(cols))
-    if(part==0)
+    if(part==0 & length(vec)>1)
         as.data.frame(cols)
+	else if(part==0) 
+		cols[1,]
     else 
         cols[,part]
 }
@@ -145,6 +147,21 @@ splitCol <- function(data, col_name, sep, fixed=FALSE) {
 
 
 
+#' extract_field
+#'
+#' This function extracts the first group of regex from a vector
+#' @param data a vector of char objects
+#' @param regex character containing regular expression(s) with a group in it
+#' @keywords extract_field extract regular expression
+#' @export
+#' @examples
+#' extract_field('hello_23_node', '(\\d+)')   # '23'
+#' extract_field(c('all-2', 'any-3', 'never-4-d'), '(\\d+)') # a vector c('2', '3', '4')
+#' extract_field(c('all-2', 'any+3', 'never+4'), '\\+(\\d+)') # a vector c(NA, '3', '4')
+extract_field <- function(data, regex)  {
+  matches <- regmatches(data, regexec(regex, data))
+  unlist(lapply(matches, `[`, 2))
+}
 
 
 
