@@ -3,6 +3,7 @@
 export(captionize)
 export(commandArgs.def)
 export(createColoredBarGraphLabels)
+export(extract_field)
 export(goodNum)
 export(if.na)
 export(if.null)
