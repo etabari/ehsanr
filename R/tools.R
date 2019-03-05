@@ -165,7 +165,7 @@ extract_field <- function(data, regex)  {
 
 
 
-#' splitCol 
+#' createColoredBarGraphLabels 
 #'
 #' This function splits the given column in the data.frame
 #' @param data a data frame one of its columns to be split
@@ -238,7 +238,19 @@ createColoredBarGraphLabels <- function (data, col.x, col.fill, col.facet=NULL, 
     labs
 }
 
+#' geom_text_y
+#'
+#' Simpler version of createColoredBarGraphLabels
+#' @export
+#' @examples
+#' ggplot(infert, aes(education, fill=factor(induced))) + geom_bar() + geom_text(stat='count', aes(label=..count.., y=geom_text_y(..count.., ..x..)))
+geom_text_y <- function(cnt, x, mid=TRUE) {
+	unlist(lapply(split(cnt, x), function(a) rev(cumsum(rev(a))) - mid * a/2))
+}
 
+		       
+		       
+		       
 #' commandArgs.def
 #'
 #' A version of commandArgs function with default values
