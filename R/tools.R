@@ -175,7 +175,6 @@ extract_field <- function(data, regex)  {
 #' @param middle create the pos to be in the middle. defaults TRUE
 #' @param reverse create the pos on reverse. defaults TRUE
 #' @keywords ggplot barplot 
-#' @export
 #' @examples
 #' infert$c <- factor(infert$induced)
 #' texts <-  createColoredBarGraphLabels(infert, 'education', 'c')
@@ -236,16 +235,6 @@ createColoredBarGraphLabels <- function (data, col.x, col.fill, col.facet=NULL, 
 		names(labs)[3] <- col.fill
 	}
     labs
-}
-
-#' geom_text_y
-#'
-#' Simpler version of createColoredBarGraphLabels
-#' @export
-#' @examples
-#' ggplot(infert, aes(education, fill=factor(induced))) + geom_bar() + geom_text(stat='count', aes(label=..count.., y=geom_text_y(..count.., ..x..)))
-geom_text_y <- function(cnt, x, mid=TRUE) {
-	unlist(lapply(split(cnt, x), function(a) rev(cumsum(rev(a))) - mid * a/2))
 }
 
 		       
